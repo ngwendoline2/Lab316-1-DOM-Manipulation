@@ -49,20 +49,29 @@ menuLinks.forEach(link => {
     topMenuEl.appendChild(newLink);
 }); 
 
-//Part 4: Adding interaction
-// 1. Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
-const topMenuLinks = []
-for (const node of topMenuEl.childNodes) {
-  topMenuLinks.push(node)
-}
+// 4. Adding Menu Interactions
+// get all a tags
+const topMenuLinks = document.querySelectorAll('a');
+console.log(topMenuLinks);
 
-// DOM MANIPULATION(Part Two)
-// part 1: pregress check
-//Adding Additional HTML and CSS
-// Add nav to html
-//<nav id="sub-menu"></nav>
-// Add some codes in CSS
+// delegate top menu to listen for a click event
+topMenuEl.addEventListener('click', function (e) {
+  console.log(e);
+  e.preventDefault(); // stop the normal action of the a tag
 
+  if (e.target.tagName !== 'A') {
+    return;
+  }
+  // toggle the active class on the anchor
+  topMenuLinks.forEach((link)=> {
+    link.classList.remove('active')
+  })
+  e.target.classList.toggle('active');
 
-
-
+//   for (let anchor of topMenuLinks) {
+//     console.log(e.target.textContent, anchor.textContent);
+//     if (e.target.textContent !== anchor.textContent) {
+//       anchor.classList.remove('active');
+//     }
+//   }
+});
