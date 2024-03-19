@@ -75,3 +75,33 @@ topMenuEl.addEventListener('click', function (e) {
 //     }
 //   }
 });
+
+//5. Adding Submenu Interactions
+
+function subMenu(subMenuLinks) {
+    subMenuEl.innerHTML = '';
+    subMenuLinks.forEach((link) => {
+      const subMenuAnchor = document.createElement('a');
+      subMenuAnchor.setAttribute('href', link.href);
+      subMenuAnchor.textContent = link.text;
+      subMenuEl.appendChild(subMenuAnchor);
+    });
+  }
+  topMenuEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.tagName !== 'A') return;
+  
+    const clickedLink = menuLinks.find(
+      (link) => link.text === e.target.textContent
+    );
+    topMenuLinks.forEach((link) => link.classList.remove('active'));
+    e.target.classList.toggle('active');
+  
+    if (clickedLink && clickedLink.subLinks) {
+      subMenu(clickedLink.subLinks);
+  
+      subMenuEl.style.top = e.target.classList.contains('active') ? '100%' : '0';
+    } else {
+      subMenuEl.style.top = '0';
+    }
+  });
