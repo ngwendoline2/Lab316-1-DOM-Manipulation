@@ -1,4 +1,4 @@
-
+// DOM Manipulation 316-part1-3
 
 //Do not modify any of the contents of the index.html or styles.css files.
 //demonstrate DOM manipulation through JavaScript.
@@ -47,6 +47,22 @@ menuLinks.forEach(link => {
     newLink.textContent = link.text;
     //Append the new element.
     topMenuEl.appendChild(newLink);
-});
+}); 
+
+//Part 4: Adding interaction
+// 1. Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
+const topMenuLinks = []
+for (const node of topMenuEl.childNodes) {
+  topMenuLinks.push(node)
+}
+
+// DOM MANIPULATION(Part Two)
+// part 1: pregress check
+//Adding Additional HTML and CSS
+// Add nav to html
+//<nav id="sub-menu"></nav>
+// Add some codes in CSS
+
+
 
 
