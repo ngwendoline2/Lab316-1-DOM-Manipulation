@@ -37,7 +37,7 @@ var menuLinks = [
     { text: 'account', href: '/account' },
   ];
 
- //Iterate over the entire menuLinks
+//  //Iterate over the entire menuLinks
 menuLinks.forEach(link => {
     //Create an <a> element.
     const newLink = document.createElement('a');
@@ -47,61 +47,70 @@ menuLinks.forEach(link => {
     newLink.textContent = link.text;
     //Append the new element.
     topMenuEl.appendChild(newLink);
-}); 
-
-// 4. Adding Menu Interactions
-// get all a tags
-const topMenuLinks = document.querySelectorAll('a');
-console.log(topMenuLinks);
-
-// delegate top menu to listen for a click event
-topMenuEl.addEventListener('click', function (e) {
-  console.log(e);
-  e.preventDefault(); // stop the normal action of the a tag
-
-  if (e.target.tagName !== 'A') {
-    return;
-  }
-  // toggle the active class on the anchor
-  topMenuLinks.forEach((link)=> {
-    link.classList.remove('active')
-  })
-  e.target.classList.toggle('active');
-
-//   for (let anchor of topMenuLinks) {
-//     console.log(e.target.textContent, anchor.textContent);
-//     if (e.target.textContent !== anchor.textContent) {
-//       anchor.classList.remove('active');
-//     }
-//   }
 });
 
-//5. Adding Submenu Interactions
 
-function subMenu(subMenuLinks) {
-    subMenuEl.innerHTML = '';
-    subMenuLinks.forEach((link) => {
-      const subMenuAnchor = document.createElement('a');
-      subMenuAnchor.setAttribute('href', link.href);
-      subMenuAnchor.textContent = link.text;
-      subMenuEl.appendChild(subMenuAnchor);
-    });
-  }
-  topMenuEl.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (e.target.tagName !== 'A') return;
+//// ===== Part 2 Assignment =====\\\\\\
   
-    const clickedLink = menuLinks.find(
-      (link) => link.text === e.target.textContent
-    );
-    topMenuLinks.forEach((link) => link.classList.remove('active'));
-    e.target.classList.toggle('active');
   
-    if (clickedLink && clickedLink.subLinks) {
-      subMenu(clickedLink.subLinks);
+  // DOM manipulation part two
+  // Restructure menuLink
   
-      subMenuEl.style.top = e.target.classList.contains('active') ? '100%' : '0';
-    } else {
-      subMenuEl.style.top = '0';
-    }
-  });
+  // Part 3.1
+  const subMenuEl = document.querySelector("#sub-menu");
+  
+  // Part 3.2
+  subMenuEl.style.height = "100%";
+  
+  // Part 3.3
+  subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
+  
+  // Part 3.4
+  subMenuEl.classList.add("flex-around");
+  
+  // Part 3.5
+  subMenuEl.style.position = "absolute";
+  
+  // Part 3.6
+  subMenuEl.style.top = "0";
+  
+  
+  // Part 4.1
+  
+  topMenuLinks = topMenuEl.querySelectorAll("a");
+  
+  topMenuEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (event.target.tagName === "A") {
+       console.log(event.target.textContent);
+        event.target.classList.toggle("active");
+        document.querySelectorAll(".menu-Links").forEach(function(link) {
+          event.target.classList.remove("active");
+        });
+        }
+        subMenuEl.innerHTML = "";
+        const linkObj = menuLinks.find(link => link.text.toLocaleLowerCase() === event.target.textContent.toLocaleLowerCase());
+        if (linkObj && linkObj.subLinks) {
+          subMenuEl.style.top = "100%" 
+          linkObj.subLinks.forEach(function(subLink) {
+            const subEL = document.createElement("a");
+            subEL.setAttribute("href", subLink.href);
+            subEL.textContent = subLink.text;
+            subMenuEl.appendChild(subEL);
+          });
+        } else {
+          subMenuEl.style.top = "0";
+          }
+          subMenuEl.addEventListener('click', function(evt) {
+            evt.preventDefault();
+            if (evt.target.tagName !== "A") {
+              return;
+            }
+              });
+            });
+  
+  
+  
+  console.log(subMenuEl);
+  console.log(topMenuEl);
+  console.log(mainEl);
